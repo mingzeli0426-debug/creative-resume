@@ -1,5 +1,7 @@
 # 李明泽 · 交互简历
 
+复用制作流程：[交互创意简历](INTERACTIVE_CREATIVE_RESUME.md)。在本仓库执行任务时，也请读取 [AGENTS.md](AGENTS.md)。
+
 纯静态网站，适合 GitHub Pages。无需安装依赖或运行构建。
 
 - `index.html`：在线首页，脚本、样式与媒体使用相对路径。
