@@ -8,6 +8,55 @@
   const intro=document.getElementById('intro'),video=document.getElementById('video'),skip=document.getElementById('skip');
   const hotspots=document.querySelector('.hotspots'),replay=document.getElementById('replay');
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const stage=document.querySelector('.stage'),stateContainer=document.getElementById('character-states');
+  const stateImages=[],stateReady=[],statePending=[];
+  let hoveredCharacter=null,focusedCharacter=null,characterFrame=0;
+  function drawCharacterState(){
+    characterFrame=0;
+    const desired=hoveredCharacter!==null?hoveredCharacter:focusedCharacter;
+    const selected=!opening&&!dialog.open&&desired!==null&&stateReady[desired]?desired:null;
+    stateImages.forEach((image,index)=>{if(image)image.classList.toggle('is-current',index===selected);});
+    stage.classList.toggle('has-character-state',selected!==null);
+    stage.dataset.characterState=selected===null?'base':String(selected+1).padStart(2,'0');
+  }
+  function queueCharacterState(){
+    if(!characterFrame)characterFrame=requestAnimationFrame(drawCharacterState);
+  }
+  function resetCharacterState(){
+    hoveredCharacter=null;focusedCharacter=null;queueCharacterState();
+  }
+  function preloadCharacterStates(){
+    statePending.splice(0).forEach(load=>load());
+  }
+  (Array.isArray(media.states)?media.states:[]).slice(0,4).forEach((source,index)=>{
+    if(typeof source!=='string'||!source)return;
+    const image=new Image();stateImages[index]=image;
+    image.alt='';image.className='character-state';image.decoding='async';image.fetchPriority='low';
+    image.onload=async()=>{
+      try{if(image.decode)await image.decode();}catch{}
+      stateReady[index]=image.naturalWidth>0;queueCharacterState();
+    };
+    image.onerror=()=>{stateReady[index]=false;queueCharacterState();};
+    stateContainer.append(image);statePending.push(()=>{image.src=source;});
+  });
+  document.querySelectorAll('.ticket[data-panel]').forEach(card=>{
+    const index=Number(card.dataset.panel);
+    card.addEventListener('pointerenter',event=>{
+      if(event.pointerType==='touch')return;
+      hoveredCharacter=index;queueCharacterState();
+    });
+    card.addEventListener('pointerleave',()=>{
+      if(hoveredCharacter===index)hoveredCharacter=null;
+      queueCharacterState();
+    });
+    card.addEventListener('focus',()=>{
+      if(card.matches(':focus-visible')){focusedCharacter=index;queueCharacterState();}
+    });
+    card.addEventListener('blur',()=>{
+      if(focusedCharacter===index)focusedCharacter=null;
+      queueCharacterState();
+    });
+  });
   let active=0,trigger=null,opening=false,watchdog=null,playAttempt=0,toastTimer=null;
   const pad=n=>String(n+1).padStart(2,'0');
   const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;};
@@ -40,9 +89,11 @@
     playAttempt++;clearTimeout(watchdog);const wasOpen=opening;opening=false;video.pause();
     intro.classList.add('hidden');intro.setAttribute('aria-hidden','true');intro.inert=true;
     hotspots.inert=false;replay.disabled=false;
+    if(wasOpen)preloadCharacterStates();
     if(restoreFocus&&wasOpen)replay.focus({preventScroll:true});
   }
   async function startIntro(manual=false){
+    resetCharacterState();
     if(dialog.open)dialog.close();
     finishIntro();const attempt=++playAttempt;opening=true;
     intro.classList.remove('hidden');intro.setAttribute('aria-hidden','false');intro.inert=false;hotspots.inert=true;replay.disabled=true;
@@ -53,12 +104,13 @@
     try{const result=video.play();if(result)await result;if(attempt!==playAttempt)return;if(manual)skip.focus({preventScroll:true});}
     catch{if(attempt===playAttempt){finishIntro(manual);if(manual)notify('视频暂时无法播放，可以直接点击票券浏览简历。');}}
   }
-  video.addEventListener('playing',()=>{clearTimeout(watchdog);watchdog=setTimeout(()=>finishIntro(false),Math.max(12000,(Number.isFinite(video.duration)?video.duration:5)*1000+4000));});
+  video.addEventListener('playing',()=>{preloadCharacterStates();clearTimeout(watchdog);watchdog=setTimeout(()=>finishIntro(false),Math.max(12000,(Number.isFinite(video.duration)?video.duration:5)*1000+4000));});
   video.addEventListener('ended',()=>finishIntro(intro.contains(document.activeElement)));
   video.addEventListener('error',()=>{if(opening){const focus=intro.contains(document.activeElement);finishIntro(focus);notify('视频加载失败，已显示静态简历。');}});
   skip.addEventListener('click',()=>finishIntro(true));replay.addEventListener('click',()=>startIntro(true));
   document.querySelectorAll('[data-panel]').forEach(button=>button.addEventListener('click',event=>{
-    event.preventDefault();finishIntro();trigger=button;render(Number(button.dataset.panel));
+    event.preventDefault();
+    resetCharacterState();finishIntro();trigger=button;render(Number(button.dataset.panel));
     document.body.classList.add('modal-open');
     try{dialog.showModal();close.focus({preventScroll:true});}catch{document.body.classList.remove('modal-open');notify('当前浏览器不支持详情弹窗，请使用新版浏览器或保存原始简历。');}
   }));
@@ -92,5 +144,7 @@
   document.getElementById('pdf').addEventListener('click',savePdf);document.getElementById('mobile-pdf').addEventListener('click',savePdf);
   if(reduce.addEventListener)reduce.addEventListener('change',()=>{if(reduce.matches&&opening)finishIntro(intro.contains(document.activeElement));});
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&opening)finishIntro(false);});
-  if(!reduce.matches&&!location.hash.startsWith('#section-'))startIntro();
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)resetCharacterState();});
+  stage.dataset.characterState='base';
+  if(!reduce.matches&&!location.hash.startsWith('#section-'))startIntro();else preloadCharacterStates();
 })();
