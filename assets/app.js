@@ -7,7 +7,12 @@
   const title=document.getElementById('detail-title'),close=document.getElementById('close');
   const intro=document.getElementById('intro'),video=document.getElementById('video'),skip=document.getElementById('skip');
   const hotspots=document.querySelector('.hotspots'),replay=document.getElementById('replay');
+  const playbackHint=document.getElementById('playback-hint'),playbackMessage=document.getElementById('playback-message');
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobilePlayback=window.matchMedia('(max-width:760px), (pointer:coarse)').matches;
+  const preferredVideo=mobilePlayback&&media.mobileVideo?media.mobileVideo:media.video;
+  const mobileCoverSource=document.getElementById('mobile-cover-source');
+  const preferredPoster=window.matchMedia(mobileCoverSource.media).matches?mobileCoverSource.srcset:document.querySelector('.cover-image').src;
   const stage=document.querySelector('.stage'),stateContainer=document.getElementById('character-states');
   const stateImages=[],stateReady=[],statePending=[];
   let hoveredCharacter=null,focusedCharacter=null,characterFrame=0;
@@ -25,7 +30,8 @@
   function resetCharacterState(){
     hoveredCharacter=null;focusedCharacter=null;queueCharacterState();
   }
-  function preloadCharacterStates(){
+  function preloadCharacterStates(force=false){
+    if(!force&&!window.matchMedia('(any-hover:hover)').matches)return;
     statePending.splice(0).forEach(load=>load());
   }
   (Array.isArray(media.states)?media.states:[]).slice(0,4).forEach((source,index)=>{
@@ -43,6 +49,7 @@
     const index=Number(card.dataset.panel);
     card.addEventListener('pointerenter',event=>{
       if(event.pointerType==='touch')return;
+      preloadCharacterStates(true);
       hoveredCharacter=index;queueCharacterState();
     });
     card.addEventListener('pointerleave',()=>{
@@ -50,14 +57,14 @@
       queueCharacterState();
     });
     card.addEventListener('focus',()=>{
-      if(card.matches(':focus-visible')){focusedCharacter=index;queueCharacterState();}
+      if(card.matches(':focus-visible')){preloadCharacterStates(true);focusedCharacter=index;queueCharacterState();}
     });
     card.addEventListener('blur',()=>{
       if(focusedCharacter===index)focusedCharacter=null;
       queueCharacterState();
     });
   });
-  let active=0,trigger=null,opening=false,watchdog=null,playAttempt=0,toastTimer=null;
+  let active=0,trigger=null,opening=false,watchdog=null,playAttempt=0,toastTimer=null,bridgeRetryEligible=false;
   const pad=n=>String(n+1).padStart(2,'0');
   const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;};
   function render(index){
@@ -87,27 +94,62 @@
   }
   function finishIntro(restoreFocus=false){
     playAttempt++;clearTimeout(watchdog);const wasOpen=opening;opening=false;video.pause();
-    intro.classList.add('hidden');intro.setAttribute('aria-hidden','true');intro.inert=true;
-    hotspots.inert=false;replay.disabled=false;
+    bridgeRetryEligible=false;
+    intro.classList.add('hidden');intro.classList.remove('is-loading');intro.setAttribute('aria-hidden','true');intro.inert=true;
+    intro.dataset.state='idle';playbackHint.hidden=true;
+    hotspots.inert=false;replay.disabled=false;replay.textContent='重新播放';
     if(wasOpen)preloadCharacterStates();
     if(restoreFocus&&wasOpen)replay.focus({preventScroll:true});
+  }
+  function offerIntroPlayback(message,allowBridgeRetry=false){
+    const restoreFocus=intro.contains(document.activeElement);
+    finishIntro(restoreFocus);
+    intro.dataset.state='awaiting-play';
+    playbackMessage.textContent=message;playbackHint.hidden=false;
+    replay.textContent='播放开场';
+    bridgeRetryEligible=allowBridgeRetry&&!reduce.matches&&!document.hidden&&!dialog.open;
+  }
+  function watchIntro(milliseconds){
+    clearTimeout(watchdog);const attempt=playAttempt;
+    watchdog=setTimeout(()=>{
+      if(attempt===playAttempt&&opening)offerIntroPlayback('加载较慢，可轻触按钮重试');
+    },milliseconds);
   }
   async function startIntro(manual=false){
     resetCharacterState();
     if(dialog.open)dialog.close();
     finishIntro();const attempt=++playAttempt;opening=true;
-    intro.classList.remove('hidden');intro.setAttribute('aria-hidden','false');intro.inert=false;hotspots.inert=true;replay.disabled=true;
-    if(!video.src)video.src=media.video;
+    intro.classList.remove('hidden');intro.classList.add('is-loading');intro.setAttribute('aria-hidden','false');intro.inert=false;
+    intro.dataset.state='loading';hotspots.inert=false;replay.disabled=false;
+    video.defaultMuted=true;video.muted=true;
+    video.setAttribute('muted','');video.setAttribute('playsinline','');video.setAttribute('webkit-playsinline','');video.setAttribute('x5-playsinline','');
+    video.preload='auto';video.controls=manual;video.poster=preferredPoster;
+    const videoURL=new URL(preferredVideo,document.baseURI).href;
+    if(!video.src||video.src!==videoURL||video.error){video.src=preferredVideo;video.load();}
     try{video.currentTime=0;}catch{}
-    video.muted=true;
-    watchdog=setTimeout(()=>{if(attempt===playAttempt){finishIntro(manual);notify('开场视频暂时无法播放，已显示简历。');}},7000);
+    watchIntro(20000);
     try{const result=video.play();if(result)await result;if(attempt!==playAttempt)return;if(manual)skip.focus({preventScroll:true});}
-    catch{if(attempt===playAttempt){finishIntro(manual);if(manual)notify('视频暂时无法播放，可以直接点击票券浏览简历。');}}
+    catch(error){
+      if(attempt!==playAttempt)return;
+      if(error&&error.name==='NotAllowedError')offerIntroPlayback('当前浏览器需要轻触后播放',!manual);
+      else if(error&&error.name==='NotSupportedError')offerIntroPlayback('轻触按钮重试开场，栏目可正常查看');
+      else offerIntroPlayback('轻触按钮播放开场，栏目可正常查看');
+    }
   }
-  video.addEventListener('playing',()=>{preloadCharacterStates();clearTimeout(watchdog);watchdog=setTimeout(()=>finishIntro(false),Math.max(12000,(Number.isFinite(video.duration)?video.duration:5)*1000+4000));});
+  video.addEventListener('playing',()=>{
+    if(!opening){video.pause();return;}
+    intro.classList.remove('is-loading');intro.dataset.state='playing';hotspots.inert=true;playbackHint.hidden=true;
+    preloadCharacterStates();watchIntro(30000);
+  });
+  video.addEventListener('timeupdate',()=>{if(opening&&!video.paused)watchIntro(30000);});
+  video.addEventListener('waiting',()=>{if(opening)watchIntro(30000);});
   video.addEventListener('ended',()=>finishIntro(intro.contains(document.activeElement)));
-  video.addEventListener('error',()=>{if(opening){const focus=intro.contains(document.activeElement);finishIntro(focus);notify('视频加载失败，已显示静态简历。');}});
+  video.addEventListener('error',()=>{if(opening)offerIntroPlayback('开场暂未加载，轻触按钮重试');});
+  document.addEventListener('WeixinJSBridgeReady',()=>{
+    if(bridgeRetryEligible&&!reduce.matches&&!document.hidden&&!dialog.open)startIntro(false);
+  },{once:true});
   skip.addEventListener('click',()=>finishIntro(true));replay.addEventListener('click',()=>startIntro(true));
+  document.getElementById('intro-start').addEventListener('click',()=>startIntro(true));
   document.querySelectorAll('[data-panel]').forEach(button=>button.addEventListener('click',event=>{
     event.preventDefault();
     resetCharacterState();finishIntro();trigger=button;render(Number(button.dataset.panel));
@@ -146,5 +188,6 @@
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&opening)finishIntro(false);});
   document.addEventListener('visibilitychange',()=>{if(document.hidden)resetCharacterState();});
   stage.dataset.characterState='base';
+  intro.dataset.state='idle';
   if(!reduce.matches&&!location.hash.startsWith('#section-'))startIntro();else preloadCharacterStates();
 })();
