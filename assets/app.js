@@ -154,7 +154,7 @@
     event.preventDefault();
     resetCharacterState();finishIntro();trigger=button;render(Number(button.dataset.panel));
     document.body.classList.add('modal-open');
-    try{dialog.showModal();close.focus({preventScroll:true});}catch{document.body.classList.remove('modal-open');notify('当前浏览器不支持详情弹窗，请使用新版浏览器或保存原始简历。');}
+    try{dialog.showModal();close.focus({preventScroll:true});}catch{document.body.classList.remove('modal-open');notify('当前浏览器不支持详情弹窗，请使用新版浏览器或保存简历PDF。');}
   }));
   document.querySelectorAll('[data-switch]').forEach(button=>button.addEventListener('click',()=>{render(Number(button.dataset.switch));title.focus({preventScroll:true});}));
   document.getElementById('next').addEventListener('click',()=>{render((active+1)%data.length);title.focus({preventScroll:true});});
