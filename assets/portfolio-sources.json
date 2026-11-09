@@ -1,0 +1,192 @@
+{
+  "note": "来源映射；仅精选图片用于网页，不包含用户上传视频和完整内部方案。",
+  "assets": {
+    "2": {
+      "src": "./assets/portfolio/work-002.webp",
+      "width": 1280,
+      "height": 1893,
+      "source": "2026_04_22_16_13_41_IMG_3572.JPG",
+      "group": "个人特色和参与的活动"
+    },
+    "25": {
+      "src": "./assets/portfolio/work-025.webp",
+      "width": 1024,
+      "height": 1536,
+      "source": "2026_11_09_16_17_20_IMG_3622.JPG",
+      "group": "创意追热点"
+    },
+    "27": {
+      "src": "./assets/portfolio/work-027.webp",
+      "width": 1024,
+      "height": 1536,
+      "source": "2026_11_09_16_17_20_IMG_3624.JPG",
+      "group": "创意追热点"
+    },
+    "38": {
+      "src": "./assets/portfolio/work-038.webp",
+      "width": 1280,
+      "height": 1707,
+      "source": "2025_08_12_17_43_12_IMG_3569.JPG",
+      "group": "可砸show一些数据和照片"
+    },
+    "44": {
+      "src": "./assets/portfolio/work-044.webp",
+      "width": 924,
+      "height": 2000,
+      "source": "2026_02_03_14_12_36_IMG_3537.PNG",
+      "group": "可砸show一些数据和照片"
+    },
+    "49": {
+      "src": "./assets/portfolio/work-049.webp",
+      "width": 924,
+      "height": 2000,
+      "source": "2026_02_03_15_38_20_IMG_3542.PNG",
+      "group": "可砸show一些数据和照片"
+    },
+    "50": {
+      "src": "./assets/portfolio/work-050.webp",
+      "width": 924,
+      "height": 2000,
+      "source": "2026_02_03_15_38_40_IMG_3543.PNG",
+      "group": "可砸show一些数据和照片"
+    },
+    "54": {
+      "src": "./assets/portfolio/work-054.webp",
+      "width": 1080,
+      "height": 1440,
+      "source": "2026_11_09_15_54_08_IMG_3522.JPG",
+      "group": "可砸show一些数据和照片"
+    },
+    "55": {
+      "src": "./assets/portfolio/work-055.webp",
+      "width": 906,
+      "height": 1209,
+      "source": "2026_11_09_16_22_17_IMG_3568.JPG",
+      "group": "可砸show一些数据和照片"
+    },
+    "56": {
+      "src": "./assets/portfolio/work-056.webp",
+      "width": 1086,
+      "height": 1448,
+      "source": "2026_11_09_16_19_44_IMG_3643.JPG",
+      "group": "探访100个公寓"
+    },
+    "57": {
+      "src": "./assets/portfolio/work-057.webp",
+      "width": 1086,
+      "height": 1448,
+      "source": "2026_11_09_16_19_44_IMG_3645.JPG",
+      "group": "探访100个公寓"
+    },
+    "58": {
+      "src": "./assets/portfolio/work-058.webp",
+      "width": 1280,
+      "height": 960,
+      "source": "2026_11_09_16_19_44_IMG_3646.JPG",
+      "group": "探访100个公寓"
+    },
+    "62": {
+      "src": "./assets/portfolio/work-062.webp",
+      "width": 1086,
+      "height": 1448,
+      "source": "2026_11_09_16_22_35_IMG_3636.JPG",
+      "group": "探访100个公寓"
+    },
+    "78": {
+      "src": "./assets/portfolio/work-078.webp",
+      "width": 1280,
+      "height": 1706,
+      "source": "2026_11_09_15_40_16_IMG_3469.JPG",
+      "group": "一些个创意拍摄瞬间和制图"
+    },
+    "103": {
+      "src": "./assets/portfolio/work-103.webp",
+      "width": 750,
+      "height": 411,
+      "source": "2025_12_16_16_12_25_IMG_3552.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "104": {
+      "src": "./assets/portfolio/work-104.webp",
+      "width": 750,
+      "height": 413,
+      "source": "2025_12_16_16_13_26_IMG_3555.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "105": {
+      "src": "./assets/portfolio/work-105.webp",
+      "width": 750,
+      "height": 408,
+      "source": "2025_12_16_16_15_27_IMG_3558.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "114": {
+      "src": "./assets/portfolio/work-114.webp",
+      "width": 1280,
+      "height": 720,
+      "source": "2026_11_09_15_52_23_IMG_3503.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "115": {
+      "src": "./assets/portfolio/work-115.webp",
+      "width": 1280,
+      "height": 720,
+      "source": "2026_11_09_15_52_23_IMG_3504.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "120": {
+      "src": "./assets/portfolio/work-120.webp",
+      "width": 1280,
+      "height": 720,
+      "source": "2026_11_09_15_52_23_IMG_3509.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "128": {
+      "src": "./assets/portfolio/work-128.webp",
+      "width": 1280,
+      "height": 720,
+      "source": "2026_11_09_15_54_08_IMG_3520.JPG",
+      "group": "蒙餐八绝视频截图"
+    },
+    "dragon4": {
+      "src": "./assets/portfolio/dragon-plan-4.webp",
+      "width": 1104,
+      "height": 621,
+      "source": "梦龙方案第4页",
+      "group": "梦龙团队方案节选"
+    },
+    "dragon6": {
+      "src": "./assets/portfolio/dragon-plan-6.webp",
+      "width": 1104,
+      "height": 621,
+      "source": "梦龙方案第6页",
+      "group": "梦龙团队方案节选"
+    },
+    "dragon7": {
+      "src": "./assets/portfolio/dragon-plan-7.webp",
+      "width": 1104,
+      "height": 621,
+      "source": "梦龙方案第7页",
+      "group": "梦龙团队方案节选"
+    }
+  },
+  "metrics": {
+    "ip_xhs": "图片49：3470396观看、5.1万赞；截图时",
+    "ip_douyin": "图片44：《不服！》224.9万播放，8994点赞，4547评论，5981分享",
+    "dragon": "用户聊天中提供的7条达人内容汇总表：108.2万阅读/曝光；非去重"
+  },
+  "job_references": [
+    {
+      "title": "胜加旗下厂牌资深内容策划",
+      "url": "https://www.adquan.com/job/27039"
+    },
+    {
+      "title": "网易内容营销职位",
+      "url": "https://www.zhaopin.com/jobdetail/CC147576900J40947038708.htm"
+    },
+    {
+      "title": "Rokid招聘官网",
+      "url": "https://rokid.zhiye.com/jobs"
+    }
+  ]
+}
