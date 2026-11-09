@@ -203,6 +203,30 @@
       "height": 1250,
       "source": "2026_11_09_16_22_26_IMG_3608.JPG",
       "group": "个人特色和参与的活动"
+    },
+    "16": {
+      "src": "./assets/portfolio/work-016.webp",
+      "width": 1200,
+      "height": 1600,
+      "source": "2026_11_09_16_22_20_IMG_3574.JPG"
+    },
+    "dream-stage": {
+      "src": "./assets/portfolio/dream-stage.webp",
+      "width": 1277,
+      "height": 715,
+      "source": "0321方案第6页嵌入的梦龙舞台参考图"
+    },
+    "school-cuc": {
+      "src": "./assets/portfolio/school-cuc.webp",
+      "width": 1400,
+      "height": 933,
+      "source": "https://www.cuc.edu.cn/2024/0619/c10764a221117/page.htm"
+    },
+    "school-em": {
+      "src": "./assets/portfolio/school-em.webp",
+      "width": 1080,
+      "height": 721,
+      "source": "https://xinwen.bjd.com.cn/content/s6971ae37e4b0687a28901bbb.html"
     }
   },
   "metrics": {
@@ -295,5 +319,12 @@
       "唯果租房",
       "北京悦兮文化传播有限公司"
     ]
+  },
+  "revision_notes": {
+    "ticket_companies": "蓝色光标 · 悦兮文化；详情排序蓝色光标、唯果、悦兮不变",
+    "ticket_metric": "按用户明确要求恢复原始票面单条笔记阅读500万+；截图时347万的详情数字保留原口径",
+    "dream_narrative": "前期方案未打动客户；用户提出勇气方向，与客户期待不谋而合，依据用户确认的项目经历",
+    "photo_classification": "删除误标为日常的work-063摄影创作",
+    "photo_replacements": "梦龙背景来自现存提报内嵌舞台参考；vivo背景与技能封面来自用户素材包"
   }
 }
