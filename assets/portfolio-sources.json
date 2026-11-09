@@ -227,12 +227,91 @@
       "width": 1080,
       "height": 721,
       "source": "https://xinwen.bjd.com.cn/content/s6971ae37e4b0687a28901bbb.html"
+    },
+    "dream-vivo-closeup": {
+      "src": "./assets/portfolio/dream-vivo-closeup.webp",
+      "width": 1214,
+      "height": 1800,
+      "source": "https://bbs.vivo.com.cn/newbbs/thread/39285434"
+    },
+    "vivo-product-official": {
+      "src": "./assets/portfolio/vivo-product-official.webp",
+      "width": 1800,
+      "height": 900,
+      "source": "https://www.vivo.com.cn/vivo/x300s/"
+    },
+    "brand-bluefocus": {
+      "src": "./assets/portfolio/brand-bluefocus.webp",
+      "width": 131,
+      "height": 26,
+      "source": "https://www.bluefocus.com/about/"
+    },
+    "brand-vigolive": {
+      "src": "./assets/portfolio/brand-vigolive.webp",
+      "width": 379,
+      "height": 84,
+      "source": "https://vigolive.cn/"
+    },
+    "article-01": {
+      "src": "./assets/portfolio/article-01.webp",
+      "width": 1080,
+      "height": 677,
+      "source": "公众号文章.docx / word/media/image1.jpeg"
+    },
+    "article-03": {
+      "src": "./assets/portfolio/article-03.webp",
+      "width": 1080,
+      "height": 1350,
+      "source": "公众号文章.docx / word/media/image3.jpeg"
+    },
+    "article-09": {
+      "src": "./assets/portfolio/article-09.webp",
+      "width": 1080,
+      "height": 1440,
+      "source": "公众号文章.docx / word/media/image9.jpeg"
+    },
+    "article-12": {
+      "src": "./assets/portfolio/article-12.webp",
+      "width": 1080,
+      "height": 1316,
+      "source": "公众号文章.docx / word/media/image12.jpeg"
+    },
+    "article-13": {
+      "src": "./assets/portfolio/article-13.webp",
+      "width": 878,
+      "height": 1218,
+      "source": "公众号文章.docx / word/media/image13.jpeg"
+    },
+    "article-14": {
+      "src": "./assets/portfolio/article-14.webp",
+      "width": 878,
+      "height": 1003,
+      "source": "公众号文章.docx / word/media/image14.jpeg"
+    },
+    "article-16": {
+      "src": "./assets/portfolio/article-16.webp",
+      "width": 1016,
+      "height": 1242,
+      "source": "公众号文章.docx / word/media/image16.jpeg"
+    },
+    "article-17": {
+      "src": "./assets/portfolio/article-17.webp",
+      "width": 1080,
+      "height": 1072,
+      "source": "公众号文章.docx / word/media/image17.jpeg"
+    },
+    "article-20": {
+      "src": "./assets/portfolio/article-20.webp",
+      "width": 1016,
+      "height": 1255,
+      "source": "公众号文章.docx / word/media/image20.jpeg"
     }
   },
   "metrics": {
     "ip_xhs": "图片49：3470396观看、5.1万赞；截图时",
     "ip_douyin": "图片44：《不服！》224.9万播放，8994点赞，4547评论，5981分享",
-    "dragon": "用户聊天中提供的7条达人内容汇总表：108.2万阅读/曝光；非去重"
+    "dragon": "用户聊天中提供的7条达人内容汇总表：108.2万阅读/曝光；非去重",
+    "vivo_conversion": "assets/resume.pdf / vivo横测个人成果：本人负责5条内容，意向转化率18.16%；站外活跃成本2.08元，为项目各内容类型最低；9.06万为站外活跃UV，不是播放量。"
   },
   "job_references": [
     {
@@ -326,5 +405,20 @@
     "dream_narrative": "前期方案未打动客户；用户提出勇气方向，与客户期待不谋而合，依据用户确认的项目经历",
     "photo_classification": "删除误标为日常的work-063摄影创作",
     "photo_replacements": "梦龙背景来自现存提报内嵌舞台参考；vivo背景与技能封面来自用户素材包"
-  }
+  },
+  "writing_showcase": {
+    "source": "公众号文章.docx",
+    "selection": "3篇完整文字原稿，精选9张文档内配图；不虚构阅读、互动或传播效果",
+    "titles": [
+      "《牛来》爆火，看见一件被我们低估很久的事",
+      "秋天来了，突然想认真生活了",
+      "出租屋里的年轻人：当“正常生活”被重新定义"
+    ]
+  },
+  "brand_identity": {
+    "bluefocus": "官方白色标识，https://www.bluefocus.com/about/",
+    "vigolive": "官方白色标识，https://vigolive.cn/",
+    "yuexi": "公司名称的网页排字徽章，非官方图形Logo"
+  },
+  "pending_exact_upload": "本次聊天内图二六宫格原文件尚未进入执行环境；暂以vivo官方产品图替代原自拍背景，等待原文件后按指定六宫格替换。"
 }

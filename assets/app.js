@@ -90,6 +90,7 @@
     const cases=[...body.querySelectorAll('[data-case]')];
     const selected=cases.find(node=>node.dataset.case===key)||cases[0];
     if(!selected)return;
+    body.querySelectorAll('[data-open-writing]').forEach(button=>button.setAttribute('aria-current','false'));
     cases.forEach(node=>{node.hidden=node!==selected;});
     body.querySelectorAll('[data-select-case]').forEach(button=>button.setAttribute('aria-current',String(button.dataset.selectCase===selected.dataset.case)));
     if(focus){selected.setAttribute('tabindex','-1');selected.focus({preventScroll:true});body.scrollTo({top:body.scrollTop+selected.getBoundingClientRect().top-body.getBoundingClientRect().top-24,behavior:reduce.matches?'auto':'smooth'});}
@@ -147,6 +148,16 @@
     const go=event.target.closest('[data-go-section]');if(go){render(Number(go.dataset.goSection));title.focus({preventScroll:true});return;}
     if(event.target.closest('[data-skill-next]')){stepSkill(1);return;}
     if(event.target.closest('[data-skill-prev]')){stepSkill(-1);return;}
+    const writingLink=event.target.closest('[data-open-writing]');
+    if(writingLink){
+      selectCase('apartment');
+      body.querySelectorAll('[data-select-case]').forEach(button=>button.setAttribute('aria-current','false'));
+      writingLink.setAttribute('aria-current','true');
+      const section=body.querySelector('.ed-writing-showcase');
+      section.setAttribute('tabindex','-1');section.focus({preventScroll:true});
+      body.scrollTo({top:body.scrollTop+section.getBoundingClientRect().top-body.getBoundingClientRect().top-24,behavior:reduce.matches?'auto':'smooth'});
+      return;
+    }
     const caseLink=event.target.closest('[data-open-case]');
     if(caseLink){event.preventDefault();const key=caseLink.dataset.openCase;render(2);selectCase(key,true);return;}
     const tab=event.target.closest('[data-select-case]');
