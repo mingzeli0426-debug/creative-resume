@@ -189,6 +189,20 @@
       "height": 1400,
       "source": "2026_06_13_17_00_41_IMG_3472.JPG",
       "group": "一些个创意拍摄瞬间和制图"
+    },
+    "2": {
+      "src": "./assets/portfolio/work-002.webp",
+      "width": 845,
+      "height": 1250,
+      "source": "2026_04_22_16_13_41_IMG_3572.JPG",
+      "group": "个人特色和参与的活动"
+    },
+    "18": {
+      "src": "./assets/portfolio/work-018.webp",
+      "width": 833,
+      "height": 1250,
+      "source": "2026_11_09_16_22_26_IMG_3608.JPG",
+      "group": "个人特色和参与的活动"
     }
   },
   "metrics": {
@@ -272,5 +286,14 @@
     "type": "ENFP-T",
     "label": "活动家",
     "source": "2026_05_19_23_42_54_IMG_3576.JPG"
+  },
+  "display_repairs": {
+    "footer": "页面SVG重排页脚文案，覆盖封面、人物状态和开场视频中的可灵遮挡；源视频文件未重新制作。",
+    "ticket_metric": "页面文字覆盖层将旧500万票面展示改为截图可核验的347万+观看。",
+    "work_order": [
+      "蓝色光标",
+      "唯果租房",
+      "北京悦兮文化传播有限公司"
+    ]
   }
 }
