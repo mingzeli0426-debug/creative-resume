@@ -66,6 +66,8 @@
   });
   let active=0,trigger=null,opening=false,watchdog=null,playAttempt=0,toastTimer=null,bridgeRetryEligible=false;
   const pad=n=>String(n+1).padStart(2,'0');
+  const profileCards=JSON.parse(document.getElementById('profile-cards').textContent);
+  let drawnCard=-1;
   const el=(tag,cls,text)=>{const node=document.createElement(tag);if(cls)node.className=cls;if(text!==undefined)node.textContent=text;return node;};
   function render(index){
     active=index;const section=data[index];
@@ -80,6 +82,8 @@
     body.replaceChildren(template.content.cloneNode(true));body.scrollTop=0;
     dialog.dataset.section=String(index);
     if(index===2)selectCase('dragon');
+    if(index===0)drawnCard=-1;
+    if(index===3)initSkillTrack();
     document.getElementById('next').textContent=(index===3?'回到第一栏':'下一栏')+' →';
   }
   function selectCase(key,focus=false){
@@ -88,15 +92,65 @@
     if(!selected)return;
     cases.forEach(node=>{node.hidden=node!==selected;});
     body.querySelectorAll('[data-select-case]').forEach(button=>button.setAttribute('aria-current',String(button.dataset.selectCase===selected.dataset.case)));
-    if(focus){selected.setAttribute('tabindex','-1');selected.focus({preventScroll:true});}
+    if(focus){selected.setAttribute('tabindex','-1');selected.focus({preventScroll:true});body.scrollTo({top:body.scrollTop+selected.getBoundingClientRect().top-body.getBoundingClientRect().top-24,behavior:reduce.matches?'auto':'smooth'});}
+  }
+  function showProfileCard(index){
+    const station=body.querySelector('.ed-draw-station');if(!station)return;
+    drawnCard=((index%profileCards.length)+profileCards.length)%profileCards.length;
+    const info=profileCards[drawnCard],card=station.querySelector('[data-draw-card]');
+    station.querySelector('[data-card-number]').textContent=pad(drawnCard)+' / 04';
+    station.querySelector('[data-card-title]').textContent=info.title;
+    station.querySelector('[data-card-subtitle]').textContent=info.subtitle;
+    const artwork=document.getElementById('portfolio-3').content.querySelector('.art-'+info.art+' svg');
+    if(artwork)station.querySelector('[data-card-art]').replaceChildren(artwork.cloneNode(true));
+    station.querySelector('[data-draw-label]').textContent='已抽取 / '+pad(drawnCard)+'—04';
+    station.querySelector('[data-draw-title]').textContent=info.title;
+    station.querySelector('[data-draw-body]').textContent=info.body;
+    const tags=el('div','ed-chips');info.tags.forEach(t=>tags.append(el('span','',t)));
+    station.querySelector('[data-draw-tags]').replaceChildren(tags);
+    station.querySelector('[data-draw-evidence]').textContent=info.evidence;
+    station.querySelector('[data-draw-link]').dataset.openCase=info.case;
+    station.querySelector('[data-draw-proof]').hidden=false;
+    station.querySelector('[data-draw-hint]').textContent='已翻开 '+pad(drawnCard)+' / 04，再点一下换一张。';
+    station.querySelectorAll('[data-draw-index]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.drawIndex)===drawnCard)));
+    const revealed=card.classList.contains('is-revealed');
+    card.classList.add('is-revealed');card.dataset.tone=info.tone;card.setAttribute('aria-pressed','true');
+    card.setAttribute('aria-label','当前档案：'+info.title+'。再点一下抽取下一张。');
+    if(revealed&&!reduce.matches&&card.animate)card.animate([{transform:'rotate(-2deg) translateY(0)'},{transform:'rotate(2deg) translateY(-10px)'},{transform:'rotate(-2deg) translateY(0)'}],{duration:420,easing:'ease-out'});
+  }
+  function updateSkillControls(index){
+    const track=body.querySelector('[data-skill-track]');if(!track)return;
+    const count=track.children.length;index=Math.max(0,Math.min(count-1,index));track.dataset.current=index;
+    body.querySelector('[data-skill-count]').textContent=pad(index)+' / '+String(count).padStart(2,'0');
+    body.querySelector('[data-skill-prev]').disabled=index===0;
+    body.querySelector('[data-skill-next]').disabled=index===count-1;
+  }
+  function stepSkill(direction){
+    const track=body.querySelector('[data-skill-track]');if(!track)return;
+    const index=Math.max(0,Math.min(track.children.length-1,Number(track.dataset.current)+direction));
+    updateSkillControls(index);
+    track.scrollTo({left:track.children[index].offsetLeft-track.children[0].offsetLeft,behavior:reduce.matches?'auto':'smooth'});
+  }
+  function initSkillTrack(){
+    const track=body.querySelector('[data-skill-track]');if(!track)return;
+    let timer;
+    track.addEventListener('scroll',()=>{clearTimeout(timer);timer=setTimeout(()=>{
+      let best=0,distance=Infinity;[...track.children].forEach((slide,i)=>{const d=Math.abs(slide.offsetLeft-track.children[0].offsetLeft-track.scrollLeft);if(d<distance){best=i;distance=d;}});updateSkillControls(best);
+    },120);},{passive:true});
+    track.addEventListener('keydown',event=>{if(event.target!==track)return;if(event.key==='ArrowRight'||event.key==='ArrowLeft'){event.preventDefault();stepSkill(event.key==='ArrowRight'?1:-1);}});
   }
   const imageDialog=document.getElementById('image-detail');
   let imageTrigger=null;
   body.addEventListener('click',event=>{
+    const draw=event.target.closest('[data-draw-card]');if(draw){showProfileCard(drawnCard+1);return;}
+    const pick=event.target.closest('[data-draw-index]');if(pick){showProfileCard(Number(pick.dataset.drawIndex));return;}
+    const go=event.target.closest('[data-go-section]');if(go){render(Number(go.dataset.goSection));title.focus({preventScroll:true});return;}
+    if(event.target.closest('[data-skill-next]')){stepSkill(1);return;}
+    if(event.target.closest('[data-skill-prev]')){stepSkill(-1);return;}
     const caseLink=event.target.closest('[data-open-case]');
     if(caseLink){event.preventDefault();const key=caseLink.dataset.openCase;render(2);selectCase(key,true);return;}
     const tab=event.target.closest('[data-select-case]');
-    if(tab){selectCase(tab.dataset.selectCase);return;}
+    if(tab){selectCase(tab.dataset.selectCase,true);return;}
     const zoom=event.target.closest('[data-zoom]');
     if(zoom){
       imageTrigger=zoom;

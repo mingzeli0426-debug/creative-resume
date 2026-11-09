@@ -1,13 +1,6 @@
 {
   "note": "来源映射；仅精选图片用于网页，不包含用户上传视频和完整内部方案。",
   "assets": {
-    "2": {
-      "src": "./assets/portfolio/work-002.webp",
-      "width": 1280,
-      "height": 1893,
-      "source": "2026_04_22_16_13_41_IMG_3572.JPG",
-      "group": "个人特色和参与的活动"
-    },
     "25": {
       "src": "./assets/portfolio/work-025.webp",
       "width": 1024,
@@ -92,13 +85,6 @@
       "source": "2026_11_09_16_22_35_IMG_3636.JPG",
       "group": "探访100个公寓"
     },
-    "78": {
-      "src": "./assets/portfolio/work-078.webp",
-      "width": 1280,
-      "height": 1706,
-      "source": "2026_11_09_15_40_16_IMG_3469.JPG",
-      "group": "一些个创意拍摄瞬间和制图"
-    },
     "103": {
       "src": "./assets/portfolio/work-103.webp",
       "width": 750,
@@ -168,6 +154,41 @@
       "height": 621,
       "source": "梦龙方案第7页",
       "group": "梦龙团队方案节选"
+    },
+    "3": {
+      "src": "./assets/portfolio/work-003.webp",
+      "width": 739,
+      "height": 1600,
+      "source": "2026_05_19_23_42_54_IMG_3576.JPG",
+      "group": "个人特色和参与的活动"
+    },
+    "13": {
+      "src": "./assets/portfolio/work-013.webp",
+      "width": 1050,
+      "height": 1400,
+      "source": "2026_11_09_16_19_44_IMG_3651.JPG",
+      "group": "个人特色和参与的活动"
+    },
+    "59": {
+      "src": "./assets/portfolio/work-059.webp",
+      "width": 1050,
+      "height": 1400,
+      "source": "2026_11_09_16_19_44_IMG_3647.JPG",
+      "group": "探访100个公寓"
+    },
+    "63": {
+      "src": "./assets/portfolio/work-063.webp",
+      "width": 898,
+      "height": 1600,
+      "source": "2016_01_01_22_29_49_IMG_3481.JPG",
+      "group": "一些个创意拍摄瞬间和制图"
+    },
+    "72": {
+      "src": "./assets/portfolio/work-072.webp",
+      "width": 1050,
+      "height": 1400,
+      "source": "2026_06_13_17_00_41_IMG_3472.JPG",
+      "group": "一些个创意拍摄瞬间和制图"
     }
   },
   "metrics": {
@@ -188,5 +209,68 @@
       "title": "Rokid招聘官网",
       "url": "https://rokid.zhiye.com/jobs"
     }
-  ]
+  ],
+  "profile_cards": [
+    {
+      "title": "灵感接收器",
+      "subtitle": "看到一个话题，忍不住再想一步。",
+      "body": "追热点时，我会多问一句：它和品牌、和用户的生活，到底有什么关系？",
+      "tags": [
+        "好奇心",
+        "联想力",
+        "爱琢磨"
+      ],
+      "evidence": "把“牛来”的热点语境，写成“唯来／未来”的品牌表达。",
+      "case": "apartment",
+      "art": "idea",
+      "tone": "mint"
+    },
+    {
+      "title": "故事搭建者",
+      "subtitle": "有想法，也想把故事讲明白。",
+      "body": "从选题、脚本到画面顺序，把一个点子拆成别人看得懂、团队拍得出的内容。",
+      "tags": [
+        "写脚本",
+        "搭结构",
+        "做系列"
+      ],
+      "evidence": "《探访100个北京公寓》：E人看感觉，I人看门道。",
+      "case": "apartment",
+      "art": "story",
+      "tone": "blue"
+    },
+    {
+      "title": "换位思考中",
+      "subtitle": "先想想，对面的人在意什么。",
+      "body": "看房的人在意通勤和预算，听演唱会的人在意现场感。内容的切口，往往就在这些感受里。",
+      "tags": [
+        "听人说",
+        "找共鸣",
+        "看需求"
+      ],
+      "evidence": "梦龙演唱会项目中，提出“勇气／勇敢做自己”的创意切口。",
+      "case": "dragon",
+      "art": "people",
+      "tone": "lilac"
+    },
+    {
+      "title": "现场行动派",
+      "subtitle": "点子出来了，那就动手试试。",
+      "body": "做自己的IP时，从定位、选题到拍摄、剪辑和复盘，我都实际跑过一遍。",
+      "tags": [
+        "能开工",
+        "盯细节",
+        "看反馈"
+      ],
+      "evidence": "个人IP「可砸show」：独立完成内容策划、执导、后期与复盘。",
+      "case": "ip",
+      "art": "action",
+      "tone": "sand"
+    }
+  ],
+  "mbti": {
+    "type": "ENFP-T",
+    "label": "活动家",
+    "source": "2026_05_19_23_42_54_IMG_3576.JPG"
+  }
 }
