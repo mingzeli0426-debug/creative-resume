@@ -60,6 +60,7 @@ strong { font-weight: 650; }
 .role + .role { border-inline-start: 1px solid var(--rule); }
 .role h3 { font-size: 13px; }
 .role p { color: var(--muted); font-size: 12px; }
+.role-tag { align-self: end; color: var(--leaf); font-size: 10px; letter-spacing: .08em; }
 .count { color: var(--olive); font: 31px Georgia, serif; }
 .count small { font: 10px var(--sans); }
 .benchmark { align-items: center; }
@@ -185,7 +186,7 @@ strong { font-weight: 650; }
   .role + .role { border-inline-start: 0; border-top: 1px solid var(--rule); }
   .role h3, .role p { grid-column: 1; }
   .role p { grid-row: 2; }
-  .count { grid-column: 2; grid-row: 1 / span 2; }
+  .role-tag { grid-column: 2; grid-row: 1 / span 2; align-self: center; text-align: right; }
   .benchmark-image img { aspect-ratio: 1.45; }
   .execution-intro { gap: 13px; }
   .stat { justify-self: start; }
